@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hao Zhang</title>
+  <meta name="description" content="Hao Zhang - Master student at Hangzhou Institute of Technology, Xidian University. Research interests: Embodied Agent, Continual Learning.">
+  <!-- 站点小图标（首字母头像，可自行替换成 images/favicon.png 之类） -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%233273dc'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='26' font-weight='bold' fill='white' text-anchor='middle'%3EHZ%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --blue: #3273dc;
+      --blue-dark: #205ec9;
+      --text: #24292f;
+      --text-light: #57606a;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 14px rgba(0,0,0,.05);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 16px;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--blue-dark); text-decoration: underline; }
+
+    /* ===== 顶部导航 ===== */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { font-weight: 700; font-size: 19px; color: var(--text); letter-spacing: .3px; }
+    .brand:hover { color: var(--blue); text-decoration: none; }
+    .nav-links { display: flex; gap: 26px; list-style: none; }
+    .nav-links a { color: var(--text-light); font-size: 15px; font-weight: 500; }
+    .nav-links a:hover { color: var(--blue); text-decoration: none; }
+
+    /* ===== 主体布局 ===== */
+    .container {
+      max-width: 1100px; margin: 30px auto 60px; padding: 0 20px;
+      display: flex; gap: 28px; align-items: flex-start;
+    }
+    .sidebar {
+      width: 300px; flex-shrink: 0;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      box-shadow: var(--shadow); padding: 30px 26px;
+      position: sticky; top: 84px;
+      text-align: center;
+    }
+    .avatar {
+      width: 150px; height: 150px; border-radius: 50%;
+      margin: 0 auto 18px; display: block;
+      border: 3px solid #eef2f8;
+    }
+    .sidebar h1 { font-size: 24px; margin-bottom: 4px; }
+    .sidebar .title { color: var(--text-light); font-size: 15px; margin-bottom: 14px; }
+    .sidebar .meta { font-size: 14px; color: var(--text-light); }
+    .icon-links { display: flex; justify-content: center; gap: 14px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .icon-links a {
+      width: 40px; height: 40px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: #f3f6fb; color: var(--text-light);
+      transition: all .2s;
+    }
+    .icon-links a:hover { background: var(--blue); color: #fff; text-decoration: none; transform: translateY(-2px); }
+    .icon-links svg { width: 19px; height: 19px; }
+
+    /* ===== 内容区 ===== */
+    .content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      box-shadow: var(--shadow); padding: 28px 32px;
+    }
+    .card h2 {
+      font-size: 21px; margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card h2 .anchor { color: inherit; }
+
+    /* 简介段落 */
+    .bio p { margin-bottom: 10px; }
+    .highlight {
+      background: #f6f9fe; border-left: 3px solid var(--blue);
+      padding: 10px 16px; border-radius: 0 8px 8px 0;
+      font-size: 15px; color: var(--text-light);
+    }
+
+    /* 研究方向 */
+    .research-list { list-style: none; }
+    .research-list li { padding: 6px 0; font-size: 16px; }
+    .research-list li::before { content: "▸ "; color: var(--blue); font-weight: 700; }
+
+    /* 新闻 / 经历列表 */
+    ul.timeline { list-style: none; }
+    ul.timeline li { padding: 5px 0; }
+    ul.timeline .date { color: var(--blue-dark); font-weight: 600; }
+
+    /* 论文条目 */
+    .pub { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px dashed var(--border); }
+    .pub:last-child { border-bottom: none; padding-bottom: 4px; }
+    .pub .pub-img {
+      width: 150px; height: 84px; flex-shrink: 0; border-radius: 6px;
+      background: linear-gradient(135deg, #dce7f8, #f3f6fb);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-light); font-size: 12px; border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .pub .pub-img img { width: 100%; height: 100%; object-fit: cover; }
+    .pub .pub-info .pub-title { font-weight: 600; font-size: 16.5px; }
+    .pub .pub-info .pub-authors { font-size: 14.5px; color: var(--text-light); margin: 4px 0; }
+    .pub .pub-info .pub-authors b { color: var(--text); }
+    .pub .pub-info .pub-venue { font-size: 14.5px; font-style: italic; }
+    .pub .pub-links { margin-top: 5px; font-size: 14px; }
+    .pub .pub-links a { margin-right: 10px; font-weight: 600; }
+    .tag { display: inline-block; background: #eef4fe; color: var(--blue-dark); border-radius: 5px; padding: 0 7px; font-size: 12.5px; font-weight: 700; font-style: normal; margin-left: 6px; vertical-align: 2px; }
+
+    /* Awards / Service 列表 */
+    ul.plain { list-style: none; }
+    ul.plain li { padding: 5px 0; }
+
+    .empty-tip { color: #9aa4b1; font-size: 14.5px; font-style: italic; }
+    footer { text-align: center; color: #9aa4b1; font-size: 13.5px; padding: 0 20px 40px; }
+
+    /* 返回顶部 */
+    #back-top {
+      position: fixed; right: 24px; bottom: 30px; width: 42px; height: 42px;
+      border-radius: 50%; border: none; background: var(--blue); color: #fff;
+      font-size: 18px; cursor: pointer; opacity: 0; pointer-events: none;
+      transition: opacity .25s; box-shadow: var(--shadow); z-index: 99;
+    }
+    #back-top.show { opacity: .85; pointer-events: auto; }
+
+    /* ===== 移动端 ===== */
+    @media (max-width: 900px) {
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 14px; }
+      .container { flex-direction: column; margin-top: 20px; }
+      .sidebar { position: static; width: 100%; }
+      .card { padding: 22px 20px; }
+      .pub { flex-direction: column; gap: 10px; }
+      .pub .pub-img { width: 100%; height: 130px; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { gap: 11px; }
+      .nav-links a { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== 顶部导航 ==================== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#about-me">Hao Zhang</a>
+    <ul class="nav-links">
+      <li><a href="#about-me">About Me</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#educations">Educations</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 左侧个人信息栏 ==================== -->
+  <aside class="sidebar">
+    <!-- 头像：把下面 src 换成你自己的照片，例如 images/photo.jpg -->
+    <img class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23dce7f8'/%3E%3Ccircle cx='100' cy='100' r='96' fill='%233273dc'/%3E%3Ctext x='100' y='118' font-family='Arial' font-size='64' font-weight='bold' fill='white' text-anchor='middle'%3EHZ%3C/text%3E%3C/svg%3E" alt="Hao Zhang">
+    <h1>Hao Zhang</h1>
+    <!-- 中文姓名（如有需要可改为：张浩 Hao Zhang） -->
+    <div class="title">Master Student</div>
+    <div class="meta">
+      <div>26241215221@stu.xidian.edu.cn</div>
+      <div>Hangzhou, China</div>
+    </div>
+    <div class="icon-links">
+      <a href="mailto:26241215221@stu.xidian.edu.cn" title="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+      </a>
+      <a href="https://github.com/zhanghao7676-ux" target="_blank" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=OZIL-gsAAAAJ&hl=zh-CN" target="_blank" title="Google Scholar">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==================== 右侧内容区 ==================== -->
+  <main class="content">
+
+    <!-- About Me -->
+    <section class="card bio" id="about-me">
+      <h2>👋 About Me</h2>
+      <p>
+        My name is <strong>Hao Zhang</strong>. I am a master's student at the
+        <strong>Hangzhou Institute of Technology, Xidian University</strong>.
+        I received my bachelor's degree from the School of Mathematics and Statistics,
+        Guangdong University of Technology.
+      </p>
+      <p>
+        My research interests focus on <strong>Embodied Agents</strong> and
+        <strong>Continual Learning</strong>. I am enthusiastic about building
+        agents that can perceive, act and keep learning in the physical world.
+      </p>
+      <!-- 最新动态一句话（可随时删改） -->
+      <div class="highlight">
+        🌟 Newest update: I have just started my master's journey — looking forward to
+        sharing my research on embodied agents and continual learning soon!
+      </div>
+    </section>
+
+    <!-- Research -->
+    <section class="card" id="research">
+      <h2>🔎 Research</h2>
+      <p style="color:var(--text-light); margin-bottom:8px;">
+        “Let agents learn and grow, endlessly, in the physical world.”
+      </p>
+      <ul class="research-list">
+        <li><strong>Embodied Agent</strong> — perception, planning and decision-making of agents in embodied environments.</li>
+        <li><strong>Continual Learning</strong> — enabling models to learn new tasks without forgetting old ones.</li>
+      </ul>
+    </section>
+
+    <!-- News -->
+    <section class="card" id="news">
+      <h2>🔥 News</h2>
+      <!-- 按时间倒序添加新闻，复制 <li> 即可 -->
+      <ul class="timeline">
+        <li><span class="date">2026.06:</span> 🎓 Started my master's study at the Hangzhou Institute of Technology, Xidian University.</li>
+        <li><span class="date">2026.06:</span> 🎓 Received my bachelor's degree from Guangdong University of Technology.</li>
+        <!-- <li><span class="date">20XX.XX:</span> 🚀 One paper is accepted by ...</li> -->
+      </ul>
+    </section>
+
+    <!-- Publications -->
+    <section class="card" id="publications">
+      <h2>📃 Publications</h2>
+
+      <!-- ====== 下面是一条示例论文条目，替换成你自己的论文即可；没有论文时可整段删除或保留注释 ====== -->
+      <div class="pub">
+        <div class="pub-img">Paper Image</div>
+        <div class="pub-info">
+          <div class="pub-title">
+            <a href="#">Example Paper Title: Your First Awesome Work on Embodied Agents</a>
+            <span class="tag">Preprint</span>
+          </div>
+          <div class="pub-authors">Author One, <b>Hao Zhang</b>, Author Three</div>
+          <div class="pub-venue">Conference / Journal Name, 20XX</div>
+          <div class="pub-links">
+            <a href="#">[PDF]</a>
+            <a href="#">[Code]</a>
+            <a href="#">[Project]</a>
+            <a href="#">[BibTeX]</a>
+          </div>
+        </div>
+      </div>
+      <!-- ====== 示例结束 ====== -->
+
+      <p class="empty-tip" style="margin-top:10px;">
+        Coming soon. (Full list on
+        <a href="https://scholar.google.com/citations?user=OZIL-gsAAAAJ&hl=zh-CN" target="_blank">Google Scholar</a>.)
+      </p>
+    </section>
+
+    <!-- Awards（获奖：暂时没有内容，可留空或删除整个 section） -->
+    <section class="card" id="awards">
+      <h2>🎖 Awards</h2>
+      <ul class="plain">
+        <!-- <li>✨ XX Scholarship, 20XX.</li> -->
+        <li class="empty-tip">To be updated.</li>
+      </ul>
+    </section>
+
+    <!-- Service（学术服务：审稿、志愿者等） -->
+    <section class="card" id="service">
+      <h2>🎡 Service</h2>
+      <ul class="plain">
+        <!-- <li>✨ Reviewer for CVPR 20XX.</li> -->
+        <li class="empty-tip">To be updated.</li>
+      </ul>
+    </section>
+
+    <!-- Experience（实习/项目经历：可选模块） -->
+    <section class="card" id="experience">
+      <h2>💼 Experience</h2>
+      <ul class="plain">
+        <!-- <li><span class="date">20XX.XX - 20XX.XX:</span> Research Intern, XXX Lab.</li> -->
+        <li class="empty-tip">To be updated.</li>
+      </ul>
+    </section>
+
+    <!-- Educations -->
+    <section class="card" id="educations">
+      <h2>📖 Educations</h2>
+      <ul class="timeline">
+        <li><span class="date">2026.06 - Now,</span> Master Student, Hangzhou Institute of Technology, Xidian University, China</li>
+        <li><span class="date">2022.09 - 2026.06,</span> Undergraduate, School of Mathematics and Statistics, Guangdong University of Technology, China</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer>© 2026 Hao Zhang · Hangzhou Institute of Technology, Xidian University</footer>
+
+<button id="back-top" title="Back to top">↑</button>
+
+<script>
+  // 返回顶部按钮
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 400);
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
